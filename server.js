@@ -4,7 +4,6 @@ const express = require('express');
 const db = require('./config/db');
 const bodyParser = require('body-parser');
 const app = express();
-const port = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -18,6 +17,6 @@ MongoClient.connect(db.url, (err, database) => {
 
     require('./app/routes')(app, data);
 
-    app.listen(port, '127.0.0.1');
+    app.listen(process.env.PORT || 3000, '127.0.0.1');
     console.log('Node server running on port 3000');
 })

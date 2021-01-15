@@ -1,14 +1,21 @@
 var ObjectID = require('mongodb').ObjectID;
 
 module.exports = function(app, db) {
-    app.get('/'),(req, res) => {
-        if (err) { 
-            res.send({ 'error': 'An error has occurred' }); 
-        } else { 
-            res.send('Hello World'); 
-        }
-    }
-    // GET
+    app.get('/', (req, res) => { 
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.end('Hello World!');
+    });
+    // GET ALL
+    app.get('/users', (req, res) => { 
+        db.collection('users').find({}).toArray((err, result) => {
+            if (err) {
+                res.send({ 'error': 'An error has occurred' }); 
+            } else {
+                res.send(result);
+            }
+        })
+    });
+    // GET by ID
     app.get('/users/:id', (req, res) => { 
         const id = req.params.id; 
         const params = { "_id": new ObjectID(id) };
