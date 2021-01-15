@@ -1,3 +1,4 @@
+require('dotenv').config()
 //lets require/import the mongodb native drivers.
 var mongodb = require('mongodb');
 const express = require('express');
